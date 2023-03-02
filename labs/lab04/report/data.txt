@@ -1,0 +1,93 @@
+x0 = 0.2
+y0 = -0.3
+u0 = [x0; y0]
+
+t0 = 0
+tmax = 58
+t = collect(LinRange(t0, tmax, 1000))
+tspan = (t0, tmax)
+
+w = 17
+function syst(dy, y, p, t)
+    dy[1] = y[2]
+    dy[2] = -w*y[1]
+end
+
+prob = ODEProblem(syst, u0, tspan)
+sol = solve(prob, saveat=t)
+
+_____________________
+
+
+w = 23
+g = 22
+
+function syst(dy, y, p, t)
+    dy[1] = y[2]
+    dy[2] = -g*y[2]-w*y[1]
+end
+
+prob = ODEProblem(syst, u0, tspan)
+sol = solve(prob, saveat=t)
+
+
+_____________________
+
+w = 8
+g = 5
+
+function P(t)
+    return 0.25*sin(8*t)
+end
+
+function syst(dy, y, p, t)
+    dy[1] = y[2]
+    dy[2] = -g*y[2]-w*y[1] + P(t)
+end
+
+prob = ODEProblem(syst, u0, tspan)
+sol = solve(prob, saveat=t)
+
+_____________________
+
+model lab04
+
+Real x(start=0.2);
+Real y(start=-0.3);
+
+parameter Real w = 17;
+
+equation
+  der(x) = y;
+  der(y) = -w*x;
+end lab04;
+
+_____________________
+
+model lab04
+
+Real x(start=0.2);
+Real y(start=-0.3);
+
+parameter Real w = 23;
+parameter Real g = 22
+
+equation
+  der(x) = y;
+  der(y) = -g*y-w*x;
+end lab04;
+
+_____________________
+
+model lab04
+
+Real x(start=0.2);
+Real y(start=-0.3);
+
+parameter Real w = 8;
+parameter Real g = 5;
+
+equation
+  der(x) = y;
+  der(y) = -g*y-w*x + 0.25*sin(8*time);
+end lab04;
