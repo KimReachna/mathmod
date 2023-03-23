@@ -1,0 +1,31 @@
+model lab07
+parameter Real a = 0.288;
+parameter Real b = 0.000018;
+parameter Real N = 3030;
+Real n(start=24);
+
+equation
+  der(n) = (a+b*n)*(N-n);
+end lab07;
+
+
+model lab07
+parameter Real a = 0.000018;
+parameter Real b = 0.377;
+parameter Real N = 3030;
+Real n(start=24);
+
+equation
+  der(n) = (a+b*n)*(N-n);
+end lab07;
+
+
+model lab07
+parameter Real a = 0.1;
+parameter Real b = 0.4;
+parameter Real N = 3030;
+Real n(start=24);
+
+equation
+  der(n) = (a*time+b*cos(time)*n)*(N-n);
+end lab07;
